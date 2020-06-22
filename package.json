@@ -1,16 +1,18 @@
 {
-  "name": "mirkl-bq",
+  "name": "mirakl-bq",
   "version": "0.0.1",
   "description": "Integration of mirkls data from api into BigQuery",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "node run index.js",
+    "test": "node dist/index.js",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
-    "build": "rimraf ./build && tsc",
+    "build:dev": "rimraf ./dist && tsc",
+    "build": "tsc",
     "build-docs": "typedoc -out docs src",
     "start:dev": "nodemon",
-    "start": "npm run build && node build/index.js",
+    "start-with-build": "npm run build && node dist/index.js",
+    "start": "node dist/index.js",
     "snyk-protect": "snyk protect"
   },
   "repository": {
@@ -26,6 +28,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
     "@types/node": "^14.0.13",
     "@typescript-eslint/eslint-plugin": "^3.3.0",
     "@typescript-eslint/parser": "^3.3.0",
@@ -39,6 +42,7 @@
     "mocha": "^8.0.1",
     "nodemon": "^2.0.4",
     "nyc": "^15.1.0",
+    "snyk": "^1.347.1",
     "ts-node": "^8.10.2",
     "typedoc": "^0.17.7",
     "typescript": "^3.9.5"

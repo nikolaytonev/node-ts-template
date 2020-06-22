@@ -1,0 +1,21 @@
+steps:
+  # build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/analytics-marketplace/mirakl-bq:${TAG_NAME}', '.']
+  # push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/analytics-marketplace/mirakl-bq:${TAG_NAME}']
+  # Deploy container image to Cloud Run
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['beta', 'run', 'deploy', 'mirakl-bq', '--image', 'gcr.io/analytics-marketplace/mirakl-bq:${TAG_NAME}',
+         '--allow-unauthenticated',
+         '--max-instances', '4',
+         '--region', 'europe-west1',
+         '--platform', 'managed',
+         '--quiet',
+         '--memory', '1024',
+         '--set-env-vars', 'NODE_ENV=staging, PRR_URI=prr, AT_MAX_AGE=7200, PROJECT_ID=analytics-marketplace, MIRAKLAPI_URL=https://xxxx.io,
+         G_CLIENT_ID=674034520731-svnfvha7sbp971ubg0mckamaac07jhc2.apps.googleusercontent.com, MODE=DEBUG, REALM=mmst.com',
+  ]
+images:
+- gcr.io/analytics-marketplace/mirakl-bq
