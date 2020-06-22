@@ -6,9 +6,11 @@
   "scripts": {
     "test": "node run index.js",
     "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix",
     "build": "rimraf ./build && tsc",
     "start:dev": "nodemon",
-    "start": "npm run build && node build/index.js"
+    "start": "npm run build && node build/index.js",
+    "snyk-protect": "snyk protect"
   },
   "repository": {
     "type": "git",
